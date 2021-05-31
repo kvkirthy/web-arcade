@@ -5,10 +5,14 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
+import { GameBoardComponent } from './components/game-board/game-board.component';
+import { DiceComponent } from './components/dice/dice.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    GameBoardComponent,
+    DiceComponent
   ],
   imports: [
     BrowserModule,
