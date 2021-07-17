@@ -1,0 +1,22 @@
+{
+    "boardGames": [
+        {
+            "title": "Scrabble",
+            "description": "A crossword game commonly played with English alphabets and words",
+            "age": "5+",
+            "players": "2 to 5",
+            "origin": "Started by an architect named Alfred Mosher Butts in the year 1938",
+            "link": "https://simple.wikipedia.org/wiki/Scrabble",
+            "alternateNames": "Scrabulous (a version of the game on Facebook)"
+        },
+        {
+            "title": "Checkers",
+            "description": "Two players start with dark and light colored pieces. The pieces move diagonally.",
+            "age": "3+",
+            "players": "Two players",
+            "origin": "12th century France",
+            "link": "https://simple.wikipedia.org/wiki/Checkers",
+            "alternateNames": "Draughts"
+        }
+    ]
+}

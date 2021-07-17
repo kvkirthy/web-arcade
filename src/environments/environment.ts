@@ -2,8 +2,11 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+// const DATA_DOMAIN_NAME = "http://localhost:8081";
+
 export const environment = {
-  production: false
+  production: false,
+  boardGameServiceUrl: `/api/board-games`
 };
 
 /*

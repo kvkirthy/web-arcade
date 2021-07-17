@@ -1,21 +1,23 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import {HttpClientModule} from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
-import { GameBoardComponent } from './components/game-board/game-board.component';
+import { BoardGamesComponent } from './components/board-games/board-games.component';
 import { DiceComponent } from './components/dice/dice.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    GameBoardComponent,
+    BoardGamesComponent,
     DiceComponent
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     AppRoutingModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,

@@ -1,0 +1,23 @@
+<div>
+    <table>
+        <tr>
+            <th> Title </th>
+            <th> History </th>
+        </tr>
+        <ng-container *ngFor="let game of (games | async)?.boardGames">
+            <tr>
+                <td>
+                    <strong>
+                        {{game.title}}
+                    </strong>
+                    <span>{{game.alternateNames}}</span>
+                </td>
+                <td>{{game.origin}}</td>
+            </tr>
+            <tr >
+                <td class="last-cell" colspan="2">{{game.description}}</td>
+            </tr>
+        </ng-container>
+
+    </table>
+</div>

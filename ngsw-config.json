@@ -26,5 +26,17 @@
         ]
       }
     }
-  ]
+  ],
+  "dataGroups": [{
+    "name": "data",
+    "urls": [
+      "api/board-games"
+    ],
+    "cacheConfig": {
+      "maxAge": "36h",
+      "timeout": "10s",
+      "maxSize": 10000,
+      "strategy":"performance"
+    }
+  }]
 }
