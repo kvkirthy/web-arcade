@@ -4,9 +4,13 @@
 
 // const DATA_DOMAIN_NAME = "http://localhost:8081";
 
-export const environment = {
-  production: false,
+export const defaultConfiguration = {
   boardGameServiceUrl: `/api/board-games`
+};
+
+export const environment = {
+  ...defaultConfiguration,
+  production: false,
 };
 
 /*

@@ -1,5 +1,6 @@
-export const environment = {
-  production: true,
-  boardGameServiceUrl: `/api/board-games`
+import { defaultConfiguration } from "./environment";
 
+export const environment = {
+  ...defaultConfiguration,
+  production: true,
 };
