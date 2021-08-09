@@ -1,4 +1,5 @@
 {
+  "appData": {"name": "Version 5: New games available and few bug fixes"},
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "assetGroups": [
@@ -30,7 +31,7 @@
   "dataGroups": [{
     "name": "data",
     "urls": [
-      "api/board-games"
+      "api/*"
     ],
     "cacheConfig": {
       "maxAge": "36h",
