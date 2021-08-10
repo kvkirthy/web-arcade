@@ -1,6 +1,8 @@
-import { Injectable } from '@angular/core';
+import { first } from 'rxjs/operators';
+import { concat, interval } from 'rxjs';
 import { SwUpdate } from '@angular/service-worker';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { ApplicationRef, Injectable } from '@angular/core';
 
 @Injectable({
   providedIn: 'root'
@@ -8,9 +10,18 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 export class SwCommunicationService {
 
   constructor(private updateSvc: SwUpdate,
-    private snackbar: MatSnackBar) {
+    private snackbar: MatSnackBar,
+    private appRef: ApplicationRef) {
       
     console.log('I\'ll verify if new version of the application is available');
+
+    let isApplicationStable$ = this.appRef.isStable.pipe(first(isStable => isStable === true));
+    let isReadyForVersionUpgrade$ = concat( isApplicationStable$, interval ( 12 * 60 * 60 * 1000));
+    isReadyForVersionUpgrade$.subscribe( () => {
+      console.log("checking for version upgrade...")
+      this.updateSvc.checkForUpdate();
+    });
+
     this.updateSvc.available.subscribe( i => {
       let message = i?.available?.appData as { "name": string };
       console.log('A new version of the application available', i.current, i.available);
