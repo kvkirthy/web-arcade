@@ -1,8 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { GamesEntity } from './board-games-entity';
-import { Observable } from 'rxjs';
+import { CommentsEntity, GamesEntity } from './board-games-entity';
+import { Observable, ObservedValueOf } from 'rxjs';
 
 
 @Injectable({
@@ -18,6 +18,12 @@ export class GamesService {
       .get<GamesEntity>(environment.boardGameServiceUrl);
   }
 
+  getComments(gameId: number): Observable<CommentsEntity[]>{
+    return this
+      .httpClient
+      .get<CommentsEntity[]>(`${environment.commentsServiceUrl}?gameId=${gameId}`);
+  }
+
   addComments(title: string, userName: string, comments: string, gameId: number, timeCommented = new Date()){
     return this
       .httpClient
@@ -27,7 +33,7 @@ export class GamesService {
         timeCommented,
         comments,
         gameId
-      }).subscribe( (res) => console.log("Add comment service call successful", res));
+      });
   }
 
 }

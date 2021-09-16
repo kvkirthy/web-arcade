@@ -9,8 +9,23 @@ router.get('/', function(req, res, next) {
     res.send(boardGames);
 });
 
+router.get('/comments', function(req, res){
+    fs.readFile("data/comments.json", {encoding: 'utf-8'},  function(err, data){
+        let comments = [];
+        if(err){
+            return console.log("error reading from the file", err);
+        }  
+        res.setHeader('Content-Type', 'application/json');
+        comments = JSON.parse(data);
+        comments = Object.values(comments).filter( i => {
+            console.log(i, i.gameId, req.query.gameId, +i.gameId === +req.query.gameId);
+            return +i.gameId === +req.query.gameId
+        });
+        res.send(comments);
+    });
+});
+
 router.post('/comments', function(req, res){
-    console.log('1', req.body);
     let commentsData = [];
     try{
         fs.readFile("data/comments.json", {encoding: 'utf-8'},  function(err, data){
@@ -18,7 +33,6 @@ router.post('/comments', function(req, res){
                 return console.log("error reading from the file", err);
             }  
             commentsData = commentsData.concat(JSON.parse(data));
-            console.log("data", commentsData, req.body);
             commentsData.push(req.body);
             // console.log("current comments", commentsData);
 
@@ -28,9 +42,10 @@ router.post('/comments', function(req, res){
                 }  
                 console.log("file saved");
             });
-        })
-
-        res.sendStatus(200);
+        });
+        res.send({
+            status: 'success'
+        });
     }catch(err){
         console.log('err2', err);
         res.sendStatus(200);

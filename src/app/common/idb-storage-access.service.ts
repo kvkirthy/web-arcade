@@ -33,8 +33,13 @@ export class IdbStorageAccessService {
         if (Array.isArray(result)) {
           result?.map( (r: {key: number; value: any}) => {
             if (r.key) {
-              this.gameSvc.addComments(r.value.title, r.value.userName, r.value.comments, r.value.gameId);
-              this.deleteComment(r.key);
+              this
+                .gameSvc
+                .addComments(r.value.title, r.value.userName, r.value.comments, r.value.gameId)
+                .subscribe(
+                  (res) => this.deleteComment(r.key),
+                  (err) => console.error("error posting cached comments to backend")
+                );
             }
           });
         }

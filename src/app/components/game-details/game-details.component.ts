@@ -1,5 +1,7 @@
+import { Observable } from 'rxjs';
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/common/games.service';
+import { CommentsEntity } from 'src/app/common/board-games-entity';
 import { IdbStorageAccessService } from 'src/app/common/idb-storage-access.service';
 
 @Component({
@@ -12,6 +14,7 @@ export class GameDetailsComponent implements OnInit {
   name: string = "";
   title: string = "";
   comments: string = "";
+  commentsObservable = new Observable<CommentsEntity[]>();
 
   game = {
     "id": 1,
@@ -28,6 +31,11 @@ export class GameDetailsComponent implements OnInit {
     private gamesSvc: GamesService) { }
 
   ngOnInit(): void {
+    this.getComments();
+  }
+  
+  private getComments(){
+    this.commentsObservable = this.gamesSvc.getComments(this.game.id)
   }
 
   updateName(event: any){
@@ -44,7 +52,13 @@ export class GameDetailsComponent implements OnInit {
 
   submitComment(){
     if(this.idbSvc.IsOnline){
-      this.gamesSvc.addComments(this.title, this.name, this.comments, this.game.id);
+      this
+        .gamesSvc
+        .addComments(this.title, this.name, this.comments, this.game.id)
+        .subscribe( (res) => {
+          this.getComments();
+          console.log("Add comment service call successful", res);
+        });
     } else {
       this.idbSvc.addComment(this.title, this.name, this.comments, this.game.id);
     }

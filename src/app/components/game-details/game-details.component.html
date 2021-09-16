@@ -5,6 +5,27 @@
 </div>
 
 <div>
+    <table>
+        <tr>
+            <th> Comments </th>
+        </tr>
+        <ng-container *ngFor="let comment of commentsObservable | async">
+            <tr>
+                <td>
+                    <strong>
+                        {{comment.title}}
+                    </strong>
+                    <div>{{comment.comments}}</div>
+                    <div><span>{{comment.userName}}</span> <span class="date">{{comment.timeCommented | date}}</span></div>
+                </td>
+            </tr>
+        </ng-container>
+    </table>
+</div>
+<div>
+    <hr>
+</div>
+<div>
     <mat-form-field>
         <mat-label>Your name</mat-label>
         <input matInput type="text" placeholder="Please provide your name" (change)="updateName($event)">

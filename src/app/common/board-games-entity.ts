@@ -11,3 +11,11 @@ export interface BoardGamesEntity {
 export interface GamesEntity {
     boardGames: Array<BoardGamesEntity>;
 }
+
+export interface CommentsEntity {
+    title: string;
+    comments: string;
+    timeCommented: string;
+    gameId: number;
+    userName:string;
+}
