@@ -1,5 +1,5 @@
 {
-  "appData": {"name": "Version 5: New games available and few bug fixes"},
+  "appData": {"name": "Version 9: New games available and few bug fixes"},
   "$schema": "./node_modules/@angular/service-worker/config/schema.json",
   "index": "/index.html",
   "assetGroups": [
