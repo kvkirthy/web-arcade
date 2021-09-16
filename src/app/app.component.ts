@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { SwCommunicationService } from 'src/app/common/sw-communication.service';
+import { IdbStorageAccessService } from './common/idb-storage-access.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
