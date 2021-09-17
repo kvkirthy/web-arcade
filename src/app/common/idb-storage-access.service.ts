@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { Observable, Subject } from 'rxjs';
 import { GamesService } from './games.service';
 
 @Injectable()
@@ -6,6 +7,7 @@ export class IdbStorageAccessService {
 
   idb = window.indexedDB;
   indexedDb: IDBDatabase;
+  syncRemoteService$ = new Subject<boolean>();
 
   constructor(private gameSvc: GamesService) {
     // this.create();
@@ -31,20 +33,36 @@ export class IdbStorageAccessService {
       let promise = this.getAllCachedComments();
       promise.then((result: any) => {
         if (Array.isArray(result)) {
-          result?.map( (r: {key: number; value: any}) => {
+          result?.map( (r: {key: number; value: any}, mapIndex: number) => {
             if (r.key) {
               this
                 .gameSvc
                 .addComments(r.value.title, r.value.userName, r.value.comments, r.value.gameId)
                 .subscribe(
-                  (res) => this.deleteComment(r.key),
-                  (err) => console.error("error posting cached comments to backend")
+                  (res) => {
+                    this.deleteComment(r.key)
+                      .then( (val) => {
+                        if((mapIndex + 1) === result.length){ // last comment succeeded.
+                          this.syncRemoteService$.next(true);
+                        }
+                      })
+                  },
+                  (err) => {
+                    console.error("error posting cached comments to backend");
+                    if((mapIndex+1) === result.length){ // last comment failed
+                      this.syncRemoteService$.next(false);
+                    }
+                  }
                 );
             }
           });
         }
       });
     });
+  }
+
+  get CommentsSyncObservable(): Observable<boolean>{
+    return this.syncRemoteService$.asObservable();
   }
 
   addComment(title: string, userName: string, comments: string, gameId: number, timeCommented = new Date()){
@@ -74,13 +92,21 @@ export class IdbStorageAccessService {
   }
 
   deleteComment(recordId: number){
-    let deleteQuery = this.indexedDb
-          .transaction("gameComments", "readwrite")
-          .objectStore("gameComments")
-          .delete(recordId);
-    
-    deleteQuery.onsuccess = (evt) => console.log("delete successful", evt);
-    deleteQuery.onerror = (error) => console.log("delete successful", error);
+    return new Promise( (resolve, reject) => {
+      let deleteQuery = this.indexedDb
+            .transaction("gameComments", "readwrite")
+            .objectStore("gameComments")
+            .delete(recordId);
+      
+      deleteQuery.onsuccess = (evt) => {
+        console.log("delete successful", evt);
+        resolve(true);
+      }
+      deleteQuery.onerror = (error) => {
+        console.log("delete successful", error);
+        reject(error);
+      }
+    });
   }
 
   getAllCachedComments() {

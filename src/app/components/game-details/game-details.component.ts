@@ -32,6 +32,11 @@ export class GameDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getComments();
+
+    this.idbSvc.CommentsSyncObservable.subscribe(
+      () => this.getComments(),
+      (error) => console.error("unable to identify if cached comments were synchronized", error)
+    );
   }
   
   private getComments(){
