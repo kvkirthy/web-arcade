@@ -22,11 +22,17 @@ export class IdbStorageAccessService {
       this.indexedDb = evt?.target?.result;
     };
 
+    request.onerror = (error: any) => {
+      console.error("Error opening IndexedDB", error);
+    }
+
     request.onupgradeneeded = function(event: any){
       console.log("version upgrade event triggered");
       let dbRef = event.target.result;
-      dbRef
-        .createObjectStore("gameComments", { keyPath: "commentId" });
+      let objStore = dbRef
+        .createObjectStore("gameComments", { autoIncrement: true })
+
+      let idxCommentId = objStore.createIndex('IdxCommentId', 'commentId', {unique: true})
     };
 
     addEventListener("online", (event) => {

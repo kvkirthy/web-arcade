@@ -2,6 +2,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { ServiceWorkerModule } from '@angular/service-worker';
@@ -25,6 +26,7 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
   imports: [
     BrowserModule,
     MatInputModule,
+    MatButtonModule,
     HttpClientModule,
     AppRoutingModule,
     MatSnackBarModule,
