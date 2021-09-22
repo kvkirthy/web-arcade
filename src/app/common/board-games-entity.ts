@@ -1,10 +1,11 @@
 export interface BoardGamesEntity {
-    title: string;
-    description: string;
+    gameId: number;
     age: string;
-    players: string;
-    origin: string;
     link: string;
+    title: string;
+    origin: string;
+    players: string;
+    description: string;
     alternateNames: string;
 }
 

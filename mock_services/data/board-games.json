@@ -1,6 +1,7 @@
 {
     "boardGames": [
         {
+            "gameId": 1,
             "title": "Scrabble",
             "description": "A crossword game commonly played with English alphabets and words",
             "age": "5+",
@@ -10,6 +11,7 @@
             "alternateNames": "Scrabulous (a version of the game on Facebook)"
         },
         {
+            "gameId": 2,
             "title": "Checkers",
             "description": "Two players start with dark and light colored pieces. The pieces move diagonally.",
             "age": "3+",

@@ -9,6 +9,11 @@ router.get('/', function(req, res, next) {
     res.send(boardGames);
 });
 
+router.get('/gameById', function(req, res, next){
+    res.setHeader('Content-Type', 'application/json');
+    res.send(boardGames.boardGames.filter( i => +i.gameId === +req.query.gameId));
+});
+
 router.get('/comments', function(req, res){
     fs.readFile("data/comments.json", {encoding: 'utf-8'},  function(err, data){
         let comments = [];
@@ -33,8 +38,7 @@ router.post('/comments', function(req, res){
                 return console.log("error reading from the file", err);
             }  
             commentsData = commentsData.concat(JSON.parse(data));
-            commentsData.push(req.body);
-            // console.log("current comments", commentsData);
+            commentsData = commentsData.concat(req.body);
 
             fs.writeFile("data/comments.json", JSON.stringify(commentsData), function(err){
                 if(err){

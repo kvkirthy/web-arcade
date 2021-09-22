@@ -1,11 +1,12 @@
+import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
 import { NgModule, APP_INITIALIZER } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-
+import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
@@ -25,8 +26,10 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
   ],
   imports: [
     BrowserModule,
+    MatCardModule,
     MatInputModule,
     MatButtonModule,
+    MatToolbarModule,
     HttpClientModule,
     AppRoutingModule,
     MatSnackBarModule,

@@ -1,8 +1,11 @@
 import { Observable } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/common/games.service';
-import { CommentsEntity } from 'src/app/common/board-games-entity';
+import { BoardGamesEntity, CommentsEntity, GamesEntity } from 'src/app/common/board-games-entity';
 import { IdbStorageAccessService } from 'src/app/common/idb-storage-access.service';
+import { EnvironmentUtilitiesService } from 'src/app/common/environment-utilities.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'wade-game-details',
@@ -15,32 +18,46 @@ export class GameDetailsComponent implements OnInit {
   title: string = "";
   comments: string = "";
   commentsObservable = new Observable<CommentsEntity[]>();
+  toolbarColor = "primary";
 
-  game = {
-    "id": 1,
-    "age": "3+",
-    "title": "Checkers",
-    "players": "Two players",
-    "alternateNames": "Draughts",
-    "origin": "12th century France",
-    "link": "https://simple.wikipedia.org/wiki/Checkers",
-    "description": "Two players start with dark and light colored pieces. The pieces move diagonally."
-  }
+  game: BoardGamesEntity;
 
   constructor(private idbSvc: IdbStorageAccessService,
-    private gamesSvc: GamesService) { }
+    private gamesSvc: GamesService,
+    private envUtil : EnvironmentUtilitiesService,
+    private snackbar: MatSnackBar,
+    private router: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.getComments();
+    this.router
+      .queryParams
+      .subscribe( r => 
+        this.getGameById(r['gameId']));
 
     this.idbSvc.CommentsSyncObservable.subscribe(
-      () => this.getComments(),
-      (error) => console.error("unable to identify if cached comments were synchronized", error)
+      () => {
+        this.getComments(this.game.gameId);
+        this.snackbar.open('Cached comments synchronized', "Close");
+      },
+      (error) => {
+        console.error("unable to identify if cached comments were synchronized", error);
+        this.snackbar.open('Unable to identify if cached comments were synchronized', "Close");
+      }
     );
+
+    this.envUtil.isOnline.subscribe( res => this.toolbarColor = res ? 'primary' : 'secondary' );
+  }
+
+  private getGameById(gameId: number){
+    this.gamesSvc.getGameById(gameId).subscribe(
+      (res: BoardGamesEntity[]) => {
+        this.game = res[0];
+        this.getComments(res[0]?.gameId);
+      });
   }
   
-  private getComments(){
-    this.commentsObservable = this.gamesSvc.getComments(this.game.id)
+  private getComments(gameId:number){
+    this.commentsObservable = this.gamesSvc.getComments(gameId);
   }
 
   updateName(event: any){
@@ -59,13 +76,14 @@ export class GameDetailsComponent implements OnInit {
     if(this.idbSvc.IsOnline){
       this
         .gamesSvc
-        .addComments(this.title, this.name, this.comments, this.game.id)
+        .addComments(this.title, this.name, this.comments, this.game.gameId)
         .subscribe( (res) => {
-          this.getComments();
-          console.log("Add comment service call successful", res);
+          this.getComments(this.game.gameId);
+          this.snackbar.open('Add comment successful', 'Close');
         });
     } else {
-      this.idbSvc.addComment(this.title, this.name, this.comments, this.game.id);
+      this.idbSvc.addComment(this.title, this.name, this.comments, this.game.gameId);
+      this.snackbar.open('Application is offline. We saved it temporarily', 'Close');
     }
   }
 

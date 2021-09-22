@@ -1,22 +1,21 @@
+<mat-toolbar color="primary">
+    <mat-toolbar-row>Game List</mat-toolbar-row>
+</mat-toolbar>
 <div>
-    <table>
-        <tr>
-            <th> Title </th>
-            <th> History </th>
-        </tr>
-        <ng-container *ngFor="let game of (games | async)?.boardGames">
-            <tr>
-                <td>
-                    <strong>
+    <ng-container *ngFor="let game of (games | async)?.boardGames">
+        <a (click)="gameSelected(game)">
+            <mat-card>
+                <mat-card-header>
+                    <h1>
                         {{game.title}}
-                    </strong>
+                    </h1>
+                </mat-card-header>
+                <mat-card-content>
                     <span>{{game.alternateNames}}</span>
-                </td>
-                <td>{{game.origin}}</td>
-            </tr>
-            <tr >
-                <td class="last-cell" colspan="2">{{game.description}}</td>
-            </tr>
-        </ng-container>
-    </table>
+                    <div>{{game.origin}}</div>
+                    <div>{{game.description}}</div>
+                </mat-card-content>
+            </mat-card>
+        </a>
+    </ng-container>
 </div>

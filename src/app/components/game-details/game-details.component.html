@@ -1,26 +1,28 @@
 
-<div>
+<mat-toolbar [color]="toolbarColor">
+    <h1>Game Details</h1>
+</mat-toolbar>
+<div *ngIf="game">
     <h2>{{game.title}}</h2>
     <div>{{game.description}}</div>
 </div>
 
 <div>
-    <table>
-        <tr>
-            <th> Comments </th>
-        </tr>
-        <ng-container *ngFor="let comment of commentsObservable | async">
-            <tr>
-                <td>
-                    <strong>
-                        {{comment.title}}
-                    </strong>
-                    <div>{{comment.comments}}</div>
-                    <div><span>{{comment.userName}}</span> <span class="date">{{comment.timeCommented | date}}</span></div>
-                </td>
-            </tr>
-        </ng-container>
-    </table>
+    <strong>
+        Comments
+    </strong>
+    <hr />
+    <mat-card *ngFor="let comment of commentsObservable | async">
+        <mat-card-header>
+            <strong>
+                {{comment.title}}
+            </strong>
+        </mat-card-header>
+        <mat-card-content>
+            <div>{{comment.comments}}</div>
+            <div><span>{{comment.userName}}</span> <span class="date">{{comment.timeCommented | date}}</span></div>
+        </mat-card-content>
+    </mat-card>
 </div>
 <div>
     <hr>
