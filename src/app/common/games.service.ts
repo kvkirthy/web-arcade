@@ -18,10 +18,10 @@ export class GamesService {
       .get<GamesEntity>(environment.boardGameServiceUrl);
   }
 
-  getGameById(gameId: number): Observable<BoardGamesEntity[]>{
+  getGameById(gameId: number): Observable<BoardGamesEntity>{
     return this
       .httpClient
-      .get<BoardGamesEntity[]>(environment.boardGamesByIdServiceUrl,{
+      .get<BoardGamesEntity>(environment.boardGamesByIdServiceUrl,{
         params: {gameId}
       });
   }
@@ -29,7 +29,9 @@ export class GamesService {
   getComments(gameId: number): Observable<CommentsEntity[]>{
     return this
       .httpClient
-      .get<CommentsEntity[]>(`${environment.commentsServiceUrl}?gameId=${gameId}`);
+      .get<CommentsEntity[]>(environment.commentsServiceUrl,{
+        params: {gameId}
+      });
   }
 
   addComments(title: string, userName: string, comments: string, gameId: number, timeCommented = new Date()){

@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
 
 router.get('/gameById', function(req, res, next){
     res.setHeader('Content-Type', 'application/json');
-    res.send(boardGames.boardGames.filter( i => +i.gameId === +req.query.gameId));
+    res.send(boardGames.boardGames.find( i => +i.gameId === +req.query.gameId));
 });
 
 router.get('/comments', function(req, res){

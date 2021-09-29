@@ -4,11 +4,15 @@ import { BoardGamesComponent } from './components/board-games/board-games.compon
 import { GameDetailsComponent } from './components/game-details/game-details.component';
 
 const routes: Routes = [{
-  path: "",
+  path: "home",
   component: BoardGamesComponent
 }, {
   path: "details",
   component: GameDetailsComponent
+}, {
+  path: "",
+  redirectTo: "/home",
+  pathMatch: "full"
 }];
 
 @NgModule({

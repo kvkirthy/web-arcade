@@ -1,11 +1,11 @@
 import { Observable } from 'rxjs';
-import { ActivatedRoute, Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { GamesService } from 'src/app/common/games.service';
-import { BoardGamesEntity, CommentsEntity, GamesEntity } from 'src/app/common/board-games-entity';
 import { IdbStorageAccessService } from 'src/app/common/idb-storage-access.service';
 import { EnvironmentUtilitiesService } from 'src/app/common/environment-utilities.service';
-import { MatSnackBar } from '@angular/material/snack-bar';
+import { BoardGamesEntity, CommentsEntity, GamesEntity } from 'src/app/common/board-games-entity';
 
 @Component({
   selector: 'wade-game-details',
@@ -49,10 +49,12 @@ export class GameDetailsComponent implements OnInit {
   }
 
   private getGameById(gameId: number){
-    this.gamesSvc.getGameById(gameId).subscribe(
-      (res: BoardGamesEntity[]) => {
-        this.game = res[0];
-        this.getComments(res[0]?.gameId);
+    this.gamesSvc
+    .getGameById(gameId)
+    .subscribe(
+      (res: BoardGamesEntity) => {
+        this.game = res;
+        this.getComments(res?.gameId);
       });
   }
   

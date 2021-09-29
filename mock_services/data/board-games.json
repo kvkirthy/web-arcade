@@ -19,6 +19,36 @@
             "origin": "12th century France",
             "link": "https://simple.wikipedia.org/wiki/Checkers",
             "alternateNames": "Draughts"
+        },
+        {
+            "gameId": 3,
+            "title": "Chess",
+            "description": "A competitive board game played by two players. The current game has origins in an ancient game played in India, Chatrang",
+            "age": "7+",
+            "players": "Two players",
+            "origin": "Unknown",
+            "link": "https://en.wikipedia.org/wiki/Chess",
+            "alternateNames": "Chatrang, Xiangqi"
+        },
+        {
+            "gameId": 4,
+            "title": "Monopoly",
+            "description": "A board game draws inspiration from economics in real world",
+            "age": "8+",
+            "players": "Multiplayer",
+            "origin": "1935",
+            "link": "https://en.wikipedia.org/wiki/Monopoly_(game)",
+            "alternateNames": ""
+        },
+        {
+            "gameId": 5,
+            "title": "Snakes and Ladders",
+            "description": "A board game, which is a race that needs players avoid snakes and get to ladders for reaching the target first.",
+            "age": "2+",
+            "players": "Multiplayer",
+            "origin": "2 AD",
+            "link": "https://en.wikipedia.org/wiki/Snakes_and_ladders",
+            "alternateNames": "Vaikunta Pali, Moksha Patam"
         }
     ]
 }
