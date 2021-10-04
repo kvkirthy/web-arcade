@@ -5,11 +5,11 @@ import { GamesService } from './games.service';
 @Injectable()
 export class IdbStorageAccessService {
 
-  idb = window.indexedDB;
+  idb = this.windowObj.indexedDB;
   indexedDb: IDBDatabase;
   syncRemoteService$ = new Subject<boolean>();
 
-  constructor(private gameSvc: GamesService) {
+  constructor(private gameSvc: GamesService, private windowObj: Window) {
     // this.create();
   }
 
@@ -35,7 +35,8 @@ export class IdbStorageAccessService {
       let idxCommentId = objStore.createIndex('IdxCommentId', 'commentId', {unique: true})
     };
 
-    addEventListener("online", (event) => {
+    this.windowObj.addEventListener("online", (event) => {
+      console.log("application is online", event);
       let promise = this.getAllCachedComments();
       promise.then((result: any) => {
         if (Array.isArray(result)) {
@@ -52,6 +53,9 @@ export class IdbStorageAccessService {
         }
       });
     });
+
+    this.windowObj.addEventListener('offline', (event) => console.log("application is offline", event));
+
   }
 
   get CommentsSyncObservable(): Observable<boolean>{
@@ -102,7 +106,7 @@ export class IdbStorageAccessService {
   }
 
   get IsOnline(){
-    return navigator.onLine;
+    return this.windowObj.navigator.onLine;
   }
 
   deleteComment(recordId: number){
@@ -123,7 +127,7 @@ export class IdbStorageAccessService {
     });
   }
 
-  getAllCachedComments() {
+  private getAllCachedComments() {
     return new Promise(
       (resolve, reject) => {
         let results: Array<{

@@ -44,6 +44,10 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
   providers: [
     IdbStorageAccessService,
     {
+      provide: Window,
+      useValue: window
+    },
+    {
       provide: APP_INITIALIZER,
       useFactory: (svc: IdbStorageAccessService) => () => svc.init(),
       deps: [IdbStorageAccessService],
