@@ -37,19 +37,20 @@ export class IdbStorageAccessService {
 
     this.windowObj.addEventListener("online", (event) => {
       console.log("application is online", event);
-      let promise = this.getAllCachedComments();
-      promise.then((result: any) => {
+      this.getAllCachedComments()
+      .then((result: any) => {
         if (Array.isArray(result)) {
-          this.prepareCommentsToUpdate(result).then(
-            r => {
-              this
-                .gameSvc
-                .addBulkComments(r)
-                .subscribe(
-                  () => this.syncRemoteService$.next(true),
-                  () => this.syncRemoteService$.next(false)
-                )
-            });
+          let r = this.transformCommentDataStructure(result);
+          this
+            .gameSvc
+            .addBulkComments(r)
+            .subscribe(
+              () => {
+                this.deleteSynchronizedComments(result);
+                this.syncRemoteService$.next(true)
+              },
+              () => this.syncRemoteService$.next(false)
+            );
         }
       });
     });
@@ -62,11 +63,14 @@ export class IdbStorageAccessService {
     return this.syncRemoteService$.asObservable();
   }
 
-  private prepareCommentsToUpdate(result: Array<any>){
-    return new Promise<any>((resolve) => {
+  private deleteSynchronizedComments(result: Array<any>){
+    result
+      ?.forEach( (r: {key: number; value: any}) => this.deleteComment(r.key));
+  }
+
+  private transformCommentDataStructure(result: Array<any>){
       let comments: any[] = [];
-      result?.map( (r: {key: number; value: any}, mapIndex: number) => {
-        if (r.key) {
+      result?.forEach( (r: {key: number; value: any}) => {
           comments.push({
             title: r.value.title, 
             userName: r.value.userName, 
@@ -74,13 +78,8 @@ export class IdbStorageAccessService {
             gameId: r.value.gameId,
             timeCommented: new Date()
           });
-          this.deleteComment(r.key)
-        }
-        if((mapIndex + 1) === result.length){ 
-          resolve(comments);
-        }
       });
-    });
+      return comments ;
   }
 
   addComment(title: string, userName: string, comments: string, gameId: number, timeCommented = new Date()){
