@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
-import { BoardGamesEntity, CommentsEntity, GamesEntity } from './board-games-entity';
+import { BoardGamesEntity, GamesEntity } from './board-games-entity';
+import { CommentsEntity } from './comments-entity';
 import { Observable, ObservedValueOf } from 'rxjs';
 
 

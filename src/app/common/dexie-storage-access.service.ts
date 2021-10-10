@@ -1,22 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Dexie } from 'dexie';
-import { CommentsEntity } from './board-games-entity';
+import { WebArcadeDB } from './web-arcade-db';
+import { CommentsEntity } from './comments-entity';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DexieStorageAccessService {
 
-  webArcadeDb = new WebArcadeDB('web-arcade-dexie');
+  webArcadeDb = new WebArcadeDB();
 
   constructor(private windowObj: Window) {
-    this.webArcadeDb
-      .open()
-      .catch(err => console.log("Dexie, error opening DB"));
 
-      this.windowObj.addEventListener("online", (event) => {
-        this.getAllCachedComments();
-      });
+  }
+
+  init(){
+    this.webArcadeDb
+    .open()
+    .catch(err => console.log("Dexie, error opening DB"));
+
+    this.windowObj.addEventListener("online", (event) => {
+      this.getAllCachedComments();
+    });
   }
 
   addComment(title: string, userName: string, comments: string, gameId: number, timeCommented = new Date()){
@@ -50,18 +54,4 @@ export class DexieStorageAccessService {
       });
     });
   }
-}
-
-class WebArcadeDB extends Dexie {
-  comments: Dexie.Table<CommentsEntity, number>;
-
-  constructor(databaseName: string) {
-    super(databaseName);
-    this.version(1).stores({
-      dGameComments: '++IdxCommentId,commentId'
-    });
-    this.comments = this.table('dGameComments');
-   }
-
-   
 }

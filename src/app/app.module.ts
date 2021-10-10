@@ -16,6 +16,7 @@ import { DiceComponent } from './components/dice/dice.component';
 import { IdbStorageAccessService } from './common/idb-storage-access.service';
 import { BoardGamesComponent } from './components/board-games/board-games.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
+import { DexieStorageAccessService } from './common/dexie-storage-access.service';
 
 @NgModule({
   declarations: [
@@ -51,6 +52,12 @@ import { GameDetailsComponent } from './components/game-details/game-details.com
       provide: APP_INITIALIZER,
       useFactory: (svc: IdbStorageAccessService) => () => svc.init(),
       deps: [IdbStorageAccessService],
+      multi: true
+    },
+    {
+      provide: APP_INITIALIZER,
+      useFactory: (svc: DexieStorageAccessService) => () => svc.init(),
+      deps: [DexieStorageAccessService],
       multi: true
     }
   ],

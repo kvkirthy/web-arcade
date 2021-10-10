@@ -3,10 +3,11 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GamesService } from 'src/app/common/games.service';
+import { CommentsEntity } from 'src/app/common/comments-entity';
+import { BoardGamesEntity } from 'src/app/common/board-games-entity';
 import { IdbStorageAccessService } from 'src/app/common/idb-storage-access.service';
 import { DexieStorageAccessService } from 'src/app/common/dexie-storage-access.service';
 import { EnvironmentUtilitiesService } from 'src/app/common/environment-utilities.service';
-import { BoardGamesEntity, CommentsEntity, GamesEntity } from 'src/app/common/board-games-entity';
 
 @Component({
   selector: 'wade-game-details',
