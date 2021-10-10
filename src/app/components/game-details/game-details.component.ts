@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { GamesService } from 'src/app/common/games.service';
 import { IdbStorageAccessService } from 'src/app/common/idb-storage-access.service';
+import { DexieStorageAccessService } from 'src/app/common/dexie-storage-access.service';
 import { EnvironmentUtilitiesService } from 'src/app/common/environment-utilities.service';
 import { BoardGamesEntity, CommentsEntity, GamesEntity } from 'src/app/common/board-games-entity';
 
@@ -23,6 +24,7 @@ export class GameDetailsComponent implements OnInit {
   game: BoardGamesEntity;
 
   constructor(private idbSvc: IdbStorageAccessService,
+    private dexieSvc: DexieStorageAccessService,
     private gamesSvc: GamesService,
     private envUtil : EnvironmentUtilitiesService,
     private snackbar: MatSnackBar,
@@ -84,7 +86,8 @@ export class GameDetailsComponent implements OnInit {
           this.snackbar.open('Add comment successful', 'Close');
         });
     } else {
-      this.idbSvc.addComment(this.title, this.name, this.comments, this.game.gameId);
+      // this.idbSvc.addComment(this.title, this.name, this.comments, this.game.gameId);
+      this.dexieSvc.addComment(this.title, this.name, this.comments, this.game.gameId);
       this.snackbar.open('Application is offline. We saved it temporarily', 'Close');
     }
   }
