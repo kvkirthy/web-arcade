@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run start-api & ng serve --proxy-config proxy.conf.json",
+    "start-pwa": "npm run start-api & npm run start-http-server",
     "start-api": "node ./mock_services/bin/www",
     "start-http-server": "yarn build && http-server dist/web-arcade --proxy http://localhost:3000",
     "build": "ng build",
