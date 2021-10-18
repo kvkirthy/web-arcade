@@ -2,8 +2,9 @@ import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
 import { GamesService } from 'src/app/common/games.service';
+import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BoardGamesEntity, GamesEntity } from 'src/app/common/board-games-entity';
-import { environment } from 'src/environments/environment';
+import { DiceComponent } from '../dice/dice.component';
 
 @Component({
   selector: 'wade-board-games',
@@ -15,7 +16,8 @@ export class BoardGamesComponent implements OnInit {
   games = new Observable<GamesEntity>();
 
   constructor(private gameService: GamesService,
-    private router: Router) { }
+    private router: Router,
+    private bottomSheet: MatBottomSheet) { }
 
   ngOnInit(): void {
     this.games = this.gameService.getBoardGames();
@@ -23,6 +25,10 @@ export class BoardGamesComponent implements OnInit {
 
   gameSelected(game: BoardGamesEntity){
     this.router.navigate(['/details'], {queryParams: {gameId: game.gameId}})
+  }
+
+  showDice(){
+    this.bottomSheet.open(DiceComponent);
   }
 
 }

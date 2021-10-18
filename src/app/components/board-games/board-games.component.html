@@ -1,5 +1,9 @@
 <mat-toolbar color="primary">
-    <mat-toolbar-row>Game List</mat-toolbar-row>
+    <mat-toolbar-row>
+      <span>Game List</span>
+      <span class="flexExpand"></span>
+      <button mat-button (click)="showDice()">Show Dice</button>
+    </mat-toolbar-row>
 </mat-toolbar>
 <div>
     <ng-container *ngFor="let game of (games | async)?.boardGames">

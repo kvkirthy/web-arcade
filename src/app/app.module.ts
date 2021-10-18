@@ -12,6 +12,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
+import { MatBottomSheetModule, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
 import { DiceComponent } from './components/dice/dice.component';
 import { IdbStorageAccessService } from './common/idb-storage-access.service';
 import { BoardGamesComponent } from './components/board-games/board-games.component';
@@ -34,6 +35,7 @@ import { DexieStorageAccessService } from './common/dexie-storage-access.service
     HttpClientModule,
     AppRoutingModule,
     MatSnackBarModule,
+    MatBottomSheetModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
