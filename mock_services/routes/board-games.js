@@ -15,7 +15,7 @@ router.get('/gameById', function(req, res, next){
 });
 
 router.get('/comments', function(req, res){
-    fs.readFile("data/comments.json", {encoding: 'utf-8'},  function(err, data){
+    fs.readFile("mock_services/data/comments.json", {encoding: 'utf-8'},  function(err, data){
         let comments = [];
         if(err){
             return console.log("error reading from the file", err);
@@ -33,14 +33,14 @@ router.get('/comments', function(req, res){
 router.post('/comments', function(req, res){
     let commentsData = [];
     try{
-        fs.readFile("data/comments.json", {encoding: 'utf-8'},  function(err, data){
+        fs.readFile("mock_services/data/comments.json", {encoding: 'utf-8'},  function(err, data){
             if(err){
                 return console.log("error reading from the file", err);
             }  
             commentsData = commentsData.concat(JSON.parse(data));
             commentsData = commentsData.concat(req.body);
 
-            fs.writeFile("data/comments.json", JSON.stringify(commentsData), function(err){
+            fs.writeFile("mock_services/data/comments.json", JSON.stringify(commentsData), function(err){
                 if(err){
                     return console.log("error writing to file", err);
                 }  
