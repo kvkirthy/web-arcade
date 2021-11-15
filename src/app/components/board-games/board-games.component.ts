@@ -1,10 +1,10 @@
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';
 import { Component, OnInit } from '@angular/core';
+import { DiceComponent } from '../dice/dice.component';
 import { GamesService } from 'src/app/common/games.service';
 import { MatBottomSheet } from '@angular/material/bottom-sheet';
 import { BoardGamesEntity, GamesEntity } from 'src/app/common/board-games-entity';
-import { DiceComponent } from '../dice/dice.component';
 
 @Component({
   selector: 'wade-board-games',

@@ -7,17 +7,18 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { ServiceWorkerModule } from '@angular/service-worker';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import { MatBottomSheetModule } from '@angular/material/bottom-sheet';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { environment } from '../environments/environment';
-import { MatBottomSheetModule, MAT_BOTTOM_SHEET_DEFAULT_OPTIONS } from '@angular/material/bottom-sheet';
 import { DiceComponent } from './components/dice/dice.component';
 import { IdbStorageAccessService } from './common/idb-storage-access.service';
+import { DexieStorageAccessService } from './common/dexie-storage-access.service';
 import { BoardGamesComponent } from './components/board-games/board-games.component';
 import { GameDetailsComponent } from './components/game-details/game-details.component';
-import { DexieStorageAccessService } from './common/dexie-storage-access.service';
+import { SwCommunicationService } from './common/sw-communication.service';
 
 @NgModule({
   declarations: [
