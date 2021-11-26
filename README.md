@@ -1,27 +1,41 @@
-# WebArcade
+# Web Arcade
+
+An imaginary online gaming arcade. it is a sample use case for the book on Building Offline Applications with Angular.
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.0.1.
 
-## Development server
+## Run the sample as a PWA (Progressive Web App)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+Use the following command to run the application as a PWA
 
-## Code scaffolding
+`npm run start-pwa`
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+(or)
 
-## Build
+`yarn start-pwa`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+**Note:** The code sample uses 
+1. Http Server for running a developer class web server hosting the Angular application
+2. Express based HTTP server providing mock respones
 
-## Running unit tests
+## Run the code samples with Webpack (default Angular Dev Server)
+Use the following command to run the application with the default Angular Dev Server
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+`npm run start`
 
-## Running end-to-end tests
+(or)
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+`yarn start`
 
-## Further help
+## Additional scripts and commands
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+Run the following scripts with `npm run [script-name]` or yarn `[script name]`
+
+| Script Name                  | Purpose                                                                      |
+|------------------------------|------------------------------------------------------------------------------|
+| start-api                    | Runs Node.js based backend server                                            |
+| start-http-server            | Performs production build on the Angular application and runs on Http-Server |
+| start-http-server-no-install | Quick way to restart Http-server. Does not perform build or install          |
+
+### Connect with the author
+Twitter [@keertikotaru](https://twitter.com/keertikotaru) | [Code Venkey](https://codevenkey.com) 
