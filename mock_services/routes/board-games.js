@@ -5,8 +5,10 @@ var boardGames = require('../data/board-games.json');
 
 /* GET users listing. */
 router.get('/', function(req, res, next) {
-    res.setHeader('Content-Type', 'application/json');
-    res.send(boardGames);
+    setTimeout( () => {
+        res.setHeader('Content-Type', 'application/json');
+        res.send(boardGames);
+    }, 6000)
 });
 
 router.get('/gameById', function(req, res, next){
@@ -19,7 +21,7 @@ router.get('/comments', function(req, res){
         let comments = [];
         if(err){
             return console.log("error reading from the file", err);
-        }  
+        }
         res.setHeader('Content-Type', 'application/json');
         comments = JSON.parse(data);
         comments = Object.values(comments).filter( i => {
@@ -36,14 +38,14 @@ router.post('/comments', function(req, res){
         fs.readFile("mock_services/data/comments.json", {encoding: 'utf-8'},  function(err, data){
             if(err){
                 return console.log("error reading from the file", err);
-            }  
+            }
             commentsData = commentsData.concat(JSON.parse(data));
             commentsData = commentsData.concat(req.body);
 
             fs.writeFile("mock_services/data/comments.json", JSON.stringify(commentsData), function(err){
                 if(err){
                     return console.log("error writing to file", err);
-                }  
+                }
                 console.log("file saved");
             });
         });
