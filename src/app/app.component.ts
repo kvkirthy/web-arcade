@@ -11,4 +11,8 @@ export class AppComponent {
 
   constructor(private commSvc: SwCommunicationService){
   }
+
+  showDice(){
+    
+  }
 }

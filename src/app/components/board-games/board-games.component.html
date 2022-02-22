@@ -1,22 +1,10 @@
-<mat-toolbar color="primary">
-    <mat-toolbar-row>
-      <span>Game List</span>
-      <span class="flexExpand"></span>
-      <button mat-button (click)="showDice()">Show Dice</button>
-    </mat-toolbar-row>
-</mat-toolbar>
 <div>
+    <h1>Game List</h1>
     <ng-container *ngFor="let game of (games | async)?.boardGames">
         <a (click)="gameSelected(game)">
             <mat-card>
-                <mat-card-header>
-                    <h1>
-                        {{game.title}}
-                    </h1>
-                </mat-card-header>
+                <mat-card-title>{{game.title}}</mat-card-title>
                 <mat-card-content>
-                    <span>{{game.alternateNames}}</span>
-                    <div>{{game.origin}}</div>
                     <div>{{game.description}}</div>
                 </mat-card-content>
             </mat-card>

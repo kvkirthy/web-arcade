@@ -1,23 +1,18 @@
-
-<mat-toolbar [color]="toolbarColor">
-    <h1>Game Details</h1>
-</mat-toolbar>
 <div *ngIf="game">
-    <h2>{{game.title}}</h2>
-    <div>{{game.description}}</div>
+    <h1>{{game.title}}</h1>
+    <div>{{game.alternateNames}}.</div>
+    <div>{{game.description}}. {{game.origin}}.</div>
 </div>
+<hr />
 
-<div>
+<div class="add-space-up">
     <strong>
         Comments
     </strong>
-    <hr />
     <mat-card *ngFor="let comment of commentsObservable | async">
-        <mat-card-header>
-            <strong>
-                {{comment.title}}
-            </strong>
-        </mat-card-header>
+        <mat-card-title>
+            {{comment.title}}
+        </mat-card-title>
         <mat-card-content>
             <div>{{comment.comments}}</div>
             <div><span>{{comment.userName}}</span> <span class="date">{{comment.timeCommented | date}}</span></div>
@@ -26,6 +21,9 @@
 </div>
 <div>
     <hr>
+    <strong>
+        Add New Comment
+    </strong>
 </div>
 <div>
     <mat-form-field>
@@ -44,7 +42,8 @@
 <div>
     <mat-form-field>
         <mat-label>Comment</mat-label>
-        <textarea name="comment" id="comment" placeholder="Write your comment here" (change)="updateComments($event)" matInput cols="30" rows="10"></textarea>
+        <textarea name="comment" id="comment" placeholder="Write your comment here" (change)="updateComments($event)"
+            matInput cols="30" rows="10"></textarea>
     </mat-form-field>
 </div>
 
