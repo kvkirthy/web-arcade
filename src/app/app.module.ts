@@ -1,3 +1,4 @@
+import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
@@ -30,6 +31,7 @@ import { SwCommunicationService } from './common/sw-communication.service';
   imports: [
     BrowserModule,
     MatCardModule,
+    MatIconModule,
     MatInputModule,
     MatButtonModule,
     MatToolbarModule,
@@ -38,7 +40,7 @@ import { SwCommunicationService } from './common/sw-communication.service';
     MatSnackBarModule,
     MatBottomSheetModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
-      enabled: environment.production,
+      enabled: true,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
